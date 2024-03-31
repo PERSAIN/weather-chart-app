@@ -1,0 +1,27 @@
+<div class="container mx-auto mt-10">
+  <h1 class="text-3xl font-bold mb-4">Weather Forecast {{weatherStation()}}</h1>
+  <h1 class="text-3xl font-bold mb-4">I honestly think that it is impossible to show all this data in just 1 chart, so I
+    decided to create a chart for each set of data :P</h1>
+
+  @if (oneChartData().datasets.length === 0) {
+  <div class="bg-white rounded shadow-md p-4 text-center">
+    <p>No forecast data available at the moment.</p>
+  </div>
+  } @else {
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white rounded shadow-md p-6">
+
+      <canvas baseChart [type]="chartType()" [data]="oneChartData()" [options]="oneChartOptions()">
+      </canvas>
+
+    </div>
+    @for(chart of chartsConfig(); track chart.type ){
+    <div class="bg-white rounded shadow-md p-6">
+      <app-generic-chart [chartConfig]="chart" [periodData]="forecastDataPeriods()"></app-generic-chart>
+    </div>
+
+    }
+  </div>
+
+  }
+</div>
